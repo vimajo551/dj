@@ -1,0 +1,30 @@
+body{
+    background-image: url(background.jpg);
+    background-size: cover;
+}
+.heading{
+    font-size: 20px;
+    width: 100%;
+    margin: 0;
+}
+.nota{
+    color: yellow;
+}
+.divV{
+    float: right;
+}
+.disco{
+    width: 50%;
+    border-radius: 50%;
+}
+.divV1{
+    float: left;
+}
+#pisca1{
+    width: 7%;
+    right: 7%;
+    border-radius: 50%;
+}
+canvas{
+    border: 5px solid black;
+}
