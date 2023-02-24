@@ -6,6 +6,7 @@ song = ""
 gnpqy = 0;
 rdeci = 0;
 gspqy = 0;
+gspdy = 0;
 
 function preload(){
     song = loadSound("music.mp3");
@@ -23,9 +24,11 @@ function setup(){
 function gotPoses(results){
     if(results.length>0){
         console.log(results)
-        gspqy=results[0].pose.keypoints[9].score;
+        gspdy=results[0].pose.keypoints[10].score;
         pdx=results[0].pose.rightWrist.x
         pdy=results[0].pose.rightWrist.y
+
+        gspqy=results[0].pose.keypoints[9].score;
         pqx=results[0].pose.leftWrist.x
         pqy=results[0].pose.leftWrist.y
     }
@@ -38,7 +41,26 @@ function modelLoaded(){
 function draw(){
     image(video, 0, 0, 600, 500)
     fill("#836FFF");
-    stroke("black")
+    stroke("black");
+    if(gspdy>0.2){
+        circle(pdx,pdy,30)
+        if(pdy>0 && pdy<=100){
+            document.getElementById("velo").innerHTML="velocidade = 0.5x";
+            song.rate(0.5)
+        } else if(pdy<100 && pdy<=200){
+            document.getElementById("velo").innerHTML="velocidade = 1x";
+            song.rate(1)
+        } else if(pdy<200 && pdy<=300){
+            document.getElementById("velo").innerHTML="velocidade = 1.5x";
+            song.rate(1.5)
+        } else if(pdy<300 && pdy<=400){
+            document.getElementById("velo").innerHTML="velocidade = 2x";
+            song.rate(2)
+        } else if(pdy>400){
+            document.getElementById("velo").innerHTML="velocidade = 2.5x";
+            song.rate(2.5)
+        }
+    }
     if(gspqy>0.2){
         circle(pqx,pqy,30)
         gnpqy=Number(pqy)
@@ -51,6 +73,6 @@ function draw(){
 
 function play(){
     song.play()
-    song.setVolume(0.1)
+    song.setVolume(1)
     song.rate(2.0)
 }
